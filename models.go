@@ -225,8 +225,11 @@ type Nest struct {
 	UpdatedAt   time.Time `json:"updated_at"`
 }
 
-// Response -
-type Response struct {
+type UsersResponse struct {
+	Object string `json:"object"`
+	Data   []User `json:"data"`
+}
+type UserResponse struct {
 	Object     string `json:"object"`
 	Attributes User   `json:"attributes"`
 }

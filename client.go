@@ -65,5 +65,5 @@ func (c *Client) doRequest(req *http.Request, authToken *string) ([]byte, error)
 		return nil, fmt.Errorf("status: %d, body: %s", res.StatusCode, body)
 	}
 
-	return body, err
+	return body, nil
 }

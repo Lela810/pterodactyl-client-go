@@ -7,11 +7,6 @@ import (
 	"net/http"
 )
 
-type GetUsersResponse struct {
-	Object     string `json:"object"`
-	Attributes []User `json:"attributes"`
-}
-
 // GetUsers - Returns list of users
 func (c *Client) GetUsers() ([]User, error) {
 	req, err := http.NewRequest("GET", fmt.Sprintf("%s/api/application/users", c.HostURL), nil)
@@ -24,13 +19,13 @@ func (c *Client) GetUsers() ([]User, error) {
 		return nil, err
 	}
 
-	response := GetUsersResponse{}
-	err = json.Unmarshal(body, &response)
+	var userList UsersResponse
+	err = json.Unmarshal(body, &userList)
 	if err != nil {
 		return nil, err
 	}
 
-	users := response.Attributes
+	users := userList.Data
 
 	return users, nil
 }
@@ -47,7 +42,7 @@ func (c *Client) GetUser(userID string) (User, error) {
 		return User{}, err
 	}
 
-	response := Response{}
+	var response UserResponse
 	err = json.Unmarshal(body, &response)
 	if err != nil {
 		return User{}, err
@@ -70,7 +65,7 @@ func (c *Client) GetUserExternalID(externalID string) (User, error) {
 		return User{}, err
 	}
 
-	response := Response{}
+	var response UserResponse
 	err = json.Unmarshal(body, &response)
 	if err != nil {
 		return User{}, err
@@ -98,7 +93,7 @@ func (c *Client) CreateUser(newUser User) (User, error) {
 		return User{}, err
 	}
 
-	response := Response{}
+	var response UserResponse
 	err = json.Unmarshal(body, &response)
 	if err != nil {
 		return User{}, err
@@ -126,7 +121,7 @@ func (c *Client) UpdateUser(userID string, updatedUser User) (User, error) {
 		return User{}, err
 	}
 
-	response := Response{}
+	var response UserResponse
 	err = json.Unmarshal(body, &response)
 	if err != nil {
 		return User{}, err
