@@ -1,3 +1,3 @@
 module github.com/Luiggi33/pterodactyl-client-go
 
-go 1.13
+go 1.19

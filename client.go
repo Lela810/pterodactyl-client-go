@@ -8,7 +8,7 @@ import (
 )
 
 // HostURL - Default pterodactyl URL
-const HostURL string = "https://panel.luiggi33.de"
+const HostURL string = "https://panel.localhost"
 
 // Client -
 type Client struct {
