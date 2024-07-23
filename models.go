@@ -18,6 +18,47 @@ type User struct {
 	UpdatedAt  time.Time `json:"updated_at"`
 }
 
+func (u User) GetEmail() string {
+	return u.Email
+}
+
+func (u User) GetUsername() string {
+	return u.Username
+}
+
+func (u User) GetFirstName() string {
+	return u.FirstName
+}
+
+func (u User) GetLastName() string {
+	return u.LastName
+}
+
+// Partial User - Only used for creating a new user
+type PartialUser struct {
+	Username  string `json:"username"`
+	Email     string `json:"email"`
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+	// Language  string `json:"language"`
+}
+
+func (p PartialUser) GetEmail() string {
+	return p.Email
+}
+
+func (p PartialUser) GetUsername() string {
+	return p.Username
+}
+
+func (p PartialUser) GetFirstName() string {
+	return p.FirstName
+}
+
+func (p PartialUser) GetLastName() string {
+	return p.LastName
+}
+
 // Node -
 type Node struct {
 	ID                 int       `json:"id"`
@@ -232,4 +273,12 @@ type UsersResponse struct {
 type UserResponse struct {
 	Object     string `json:"object"`
 	Attributes User   `json:"attributes"`
+}
+
+// UserInterface - Interface for User and PartialUser
+type UserInterface interface {
+	GetUsername() string
+	GetEmail() string
+	GetFirstName() string
+	GetLastName() string
 }

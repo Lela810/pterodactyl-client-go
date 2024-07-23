@@ -36,8 +36,8 @@ func (c *Client) GetUsers() ([]User, error) {
 }
 
 // GetUser - Returns specific user
-func (c *Client) GetUser(userID string) (User, error) {
-	req, err := http.NewRequest("GET", fmt.Sprintf("%s/api/application/users/%s", c.HostURL, userID), nil)
+func (c *Client) GetUser(userID int) (User, error) {
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s/api/application/users/%d", c.HostURL, userID), nil)
 	if err != nil {
 		return User{}, err
 	}
@@ -82,8 +82,8 @@ func (c *Client) GetUserExternalID(externalID string) (User, error) {
 }
 
 // CreateUser - Create new user
-func (c *Client) CreateUser(newUser User) (User, error) {
-	marshalled_user, err := json.Marshal(User{Email: newUser.Email, Username: newUser.Username, FirstName: newUser.FirstName, LastName: newUser.LastName})
+func (c *Client) CreateUser(newUser PartialUser) (User, error) {
+	marshalled_user, err := json.Marshal(PartialUser{Email: newUser.Email, Username: newUser.Username, FirstName: newUser.FirstName, LastName: newUser.LastName})
 	if err != nil {
 		return User{}, err
 	}
@@ -110,13 +110,13 @@ func (c *Client) CreateUser(newUser User) (User, error) {
 }
 
 // UpdateUser - Update user
-func (c *Client) UpdateUser(userID string, updatedUser User) (User, error) {
-	marshalled_user, err := json.Marshal(User{Email: updatedUser.Email, Username: updatedUser.Username, FirstName: updatedUser.FirstName, LastName: updatedUser.LastName})
+func (c *Client) UpdateUser(userID int, userInterface UserInterface) (User, error) {
+	marshalled_user, err := json.Marshal(PartialUser{Email: userInterface.GetEmail(), Username: userInterface.GetUsername(), FirstName: userInterface.GetFirstName(), LastName: userInterface.GetLastName()})
 	if err != nil {
 		return User{}, err
 	}
 
-	req, err := http.NewRequest("PATCH", fmt.Sprintf("%s/api/application/users/%s", c.HostURL, userID), bytes.NewReader(marshalled_user))
+	req, err := http.NewRequest("PATCH", fmt.Sprintf("%s/api/application/users/%d", c.HostURL, userID), bytes.NewReader(marshalled_user))
 	if err != nil {
 		return User{}, err
 	}
@@ -138,8 +138,8 @@ func (c *Client) UpdateUser(userID string, updatedUser User) (User, error) {
 }
 
 // DeleteUser - Delete user
-func (c *Client) DeleteUser(userID string) error {
-	req, err := http.NewRequest("DELETE", fmt.Sprintf("%s/api/application/users/%s", c.HostURL, userID), nil)
+func (c *Client) DeleteUser(userID int) error {
+	req, err := http.NewRequest("DELETE", fmt.Sprintf("%s/api/application/users/%d", c.HostURL, userID), nil)
 	if err != nil {
 		return err
 	}
