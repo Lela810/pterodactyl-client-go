@@ -25,7 +25,12 @@ func (c *Client) GetUsers() ([]User, error) {
 		return nil, err
 	}
 
-	users := userList.Data
+	userResponses := userList.Data
+
+	users := make([]User, len(userResponses))
+	for i, userResponse := range userResponses {
+		users[i] = userResponse.Attributes
+	}
 
 	return users, nil
 }

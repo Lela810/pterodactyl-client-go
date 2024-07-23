@@ -226,8 +226,8 @@ type Nest struct {
 }
 
 type UsersResponse struct {
-	Object string `json:"object"`
-	Data   []User `json:"data"`
+	Object string         `json:"object"`
+	Data   []UserResponse `json:"data"`
 }
 type UserResponse struct {
 	Object     string `json:"object"`
