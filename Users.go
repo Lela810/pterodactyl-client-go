@@ -58,6 +58,64 @@ func (c *Client) GetUser(userID int) (User, error) {
 	return user, nil
 }
 
+// GetUserEmail - Returns specific user by email
+func (c *Client) GetUserEmail(email string) (User, error) {
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s/api/application/users/", c.HostURL), nil)
+	if err != nil {
+		return User{}, err
+	}
+
+	body, err := c.doRequest(req, nil)
+	if err != nil {
+		return User{}, err
+	}
+
+	var userList UsersResponse
+	err = json.Unmarshal(body, &userList)
+	if err != nil {
+		return User{}, err
+	}
+
+	userResponses := userList.Data
+
+	for _, userResponse := range userResponses {
+		if userResponse.Attributes.Email == email {
+			return userResponse.Attributes, nil
+		}
+	}
+
+	return User{}, fmt.Errorf("User with email %s not found", email)
+}
+
+// GetUserUsername - Returns specific user by username
+func (c *Client) GetUserUsername(username string) (User, error) {
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s/api/application/users/", c.HostURL), nil)
+	if err != nil {
+		return User{}, err
+	}
+
+	body, err := c.doRequest(req, nil)
+	if err != nil {
+		return User{}, err
+	}
+
+	var userList UsersResponse
+	err = json.Unmarshal(body, &userList)
+	if err != nil {
+		return User{}, err
+	}
+
+	userResponses := userList.Data
+
+	for _, userResponse := range userResponses {
+		if userResponse.Attributes.Username == username {
+			return userResponse.Attributes, nil
+		}
+	}
+
+	return User{}, fmt.Errorf("User with username %s not found", username)
+}
+
 // GetUserExternalID - Returns specific user by external ID
 func (c *Client) GetUserExternalID(externalID string) (User, error) {
 	req, err := http.NewRequest("GET", fmt.Sprintf("%s/api/application/users/external/%s", c.HostURL, externalID), nil)
