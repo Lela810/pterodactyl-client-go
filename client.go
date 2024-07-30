@@ -1,6 +1,8 @@
 package pterodactyl
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -67,4 +69,9 @@ func (c *Client) doRequest(req *http.Request, authToken *string) ([]byte, error)
 	}
 
 	return body, nil
+}
+
+func (c *Client) prepareBody(body interface{}) io.Reader {
+	b, _ := json.Marshal(body)
+	return bytes.NewReader(b)
 }
