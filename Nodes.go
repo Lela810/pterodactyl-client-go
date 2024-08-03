@@ -117,16 +117,6 @@ func (c *Client) CreateNode(node NodesInterface) (Node, error) {
 
 	newNode := response.Attributes
 
-	// if node.GetDescription() != "" {
-	// 	updatedNode := PartialNode{
-	// 		Description: node.GetDescription(),
-	// 	}
-	// 	_, err = http.NewRequest("PATCH", fmt.Sprintf("%s/api/application/nodes/%d", c.HostURL, newNode.ID), c.prepareBody(updatedNode))
-	// 	if err != nil {
-	// 		return Node{}, err
-	// 	}
-	// }
-
 	return newNode, nil
 }
 
