@@ -275,8 +275,8 @@ type Allocation struct {
 }
 
 type PartialAllocation struct {
-	IP    string  `json:"ip"`
-	Ports []int32 `json:"ports"`
+	IP    string   `json:"ip"`
+	Ports []string `json:"ports"`
 }
 
 type AllocationsResponse struct {
