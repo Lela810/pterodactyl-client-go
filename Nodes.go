@@ -203,9 +203,9 @@ func (c *Client) GetNodeAllocations(nodeID int32) ([]Allocation, error) {
 	return allocations, nil
 }
 
-// CreateAllocations - Adds an allocation to a node
-func (c *Client) CreateAllocations(nodeID int32, allocations []PartialAllocation) error {
-	req, err := http.NewRequest("POST", fmt.Sprintf("%s/api/application/nodes/%d/allocations", c.HostURL, nodeID), c.prepareBody(allocations))
+// CreateAllocation - Adds an allocation to a node
+func (c *Client) CreateAllocation(nodeID int32, allocation PartialAllocation) error {
+	req, err := http.NewRequest("POST", fmt.Sprintf("%s/api/application/nodes/%d/allocations", c.HostURL, nodeID), c.prepareBody(allocation))
 	if err != nil {
 		return err
 	}
