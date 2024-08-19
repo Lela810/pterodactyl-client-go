@@ -298,6 +298,41 @@ type Location struct {
 	CreatedAt time.Time `json:"created_at"`
 }
 
+func (l Location) GetShort() string {
+	return l.Short
+}
+func (l Location) GetLong() string {
+	return l.Long
+}
+
+type PartialLocation struct {
+	Short string `json:"short"`
+	Long  string `json:"long"`
+}
+
+func (l PartialLocation) GetShort() string {
+	return l.Short
+}
+func (l PartialLocation) GetLong() string {
+	return l.Long
+}
+
+type LocationsResponse struct {
+	Object string             `json:"object"`
+	Data   []LocationResponse `json:"data"`
+}
+
+type LocationResponse struct {
+	Object     string   `json:"object"`
+	Attributes Location `json:"attributes"`
+}
+
+// Location Interface - interface for Location and PartialLocation
+type LocationInterface interface {
+	GetShort() string
+	GetLong() string
+}
+
 // ServerDatabase -
 type ServerDatabase struct {
 	ID             int32     `json:"id"`
