@@ -31,7 +31,7 @@ func (u User) GetLastName() string {
 	return u.LastName
 }
 
-// Partial User - Only used for creating a new user
+// PartialUser - Only used for creating a new user
 type PartialUser struct {
 	Username  string `json:"username"`
 	Email     string `json:"email"`
@@ -140,7 +140,7 @@ func (n Node) GetDaemonListen() int32 {
 	return n.DaemonListen
 }
 
-// Partial Node - Only used for creating a new node
+// PartialNode - Only used for creating a new node
 type PartialNode struct {
 	Name               string `json:"name"`
 	Description        string `json:"description"`
@@ -215,7 +215,7 @@ type NodeResponse struct {
 	Attributes Node   `json:"attributes"`
 }
 
-// Nodes Interface - interface for Node and PartialNode
+// NodesInterface - interface for Node and PartialNode
 type NodesInterface interface {
 	GetName() string
 	GetDescription() string
@@ -234,7 +234,7 @@ type NodesInterface interface {
 	GetDaemonListen() int32
 }
 
-// Node Configuration -
+// NodeConfiguration -
 type NodeConfiguration struct {
 	Debug   bool   `json:"debug"`
 	UUID    string `json:"uuid"`
@@ -327,7 +327,7 @@ type LocationResponse struct {
 	Attributes Location `json:"attributes"`
 }
 
-// Location Interface - interface for Location and PartialLocation
+// LocationInterface - interface for Location and PartialLocation
 type LocationInterface interface {
 	GetShort() string
 	GetLong() string

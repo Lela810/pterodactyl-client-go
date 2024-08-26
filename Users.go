@@ -1,7 +1,6 @@
 package pterodactyl
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -112,7 +111,7 @@ func (c *Client) GetUserEmail(email string) (User, error) {
 		}
 	}
 
-	return User{}, fmt.Errorf("User with email %s not found", email)
+	return User{}, fmt.Errorf("user with email %s not found", email)
 }
 
 // GetUserUsername - Returns specific user by username
@@ -141,7 +140,7 @@ func (c *Client) GetUserUsername(username string) (User, error) {
 		}
 	}
 
-	return User{}, fmt.Errorf("User with username %s not found", username)
+	return User{}, fmt.Errorf("user with username %s not found", username)
 }
 
 // GetUserExternalID - Returns specific user by external ID
@@ -192,12 +191,14 @@ func (c *Client) CreateUser(newUser PartialUser) (User, error) {
 
 // UpdateUser - Update user
 func (c *Client) UpdateUser(userID int32, userInterface UserInterface) (User, error) {
-	marshalled_user, err := json.Marshal(PartialUser{Email: userInterface.GetEmail(), Username: userInterface.GetUsername(), FirstName: userInterface.GetFirstName(), LastName: userInterface.GetLastName()})
-	if err != nil {
-		return User{}, err
+	marshalledUser := PartialUser{
+		Email:     userInterface.GetEmail(),
+		Username:  userInterface.GetUsername(),
+		FirstName: userInterface.GetFirstName(),
+		LastName:  userInterface.GetLastName(),
 	}
 
-	req, err := http.NewRequest("PATCH", fmt.Sprintf("%s/api/application/users/%d", c.HostURL, userID), bytes.NewReader(marshalled_user))
+	req, err := http.NewRequest("PATCH", fmt.Sprintf("%s/api/application/users/%d", c.HostURL, userID), c.prepareBody(marshalledUser))
 	if err != nil {
 		return User{}, err
 	}

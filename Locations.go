@@ -59,7 +59,11 @@ func (c *Client) GetLocation(locationID int32) (Location, error) {
 
 // CreateLocation - Creates a new location
 func (c *Client) CreateLocation(location LocationInterface) (Location, error) {
-	req, err := http.NewRequest("POST", fmt.Sprintf("%s/api/application/locations", c.HostURL), c.prepareBody(location))
+	partialLocation := PartialLocation{
+		Short: location.GetShort(),
+		Long:  location.GetLong(),
+	}
+	req, err := http.NewRequest("POST", fmt.Sprintf("%s/api/application/locations", c.HostURL), c.prepareBody(partialLocation))
 	if err != nil {
 		return Location{}, err
 	}
@@ -82,7 +86,11 @@ func (c *Client) CreateLocation(location LocationInterface) (Location, error) {
 
 // UpdateLocation - Updates a location
 func (c *Client) UpdateLocation(locationID int32, location LocationInterface) (Location, error) {
-	req, err := http.NewRequest("PATCH", fmt.Sprintf("%s/api/application/locations/%d", c.HostURL, locationID), c.prepareBody(location))
+	partialLocation := PartialLocation{
+		Short: location.GetShort(),
+		Long:  location.GetLong(),
+	}
+	req, err := http.NewRequest("PATCH", fmt.Sprintf("%s/api/application/locations/%d", c.HostURL, locationID), c.prepareBody(partialLocation))
 	if err != nil {
 		return Location{}, err
 	}
