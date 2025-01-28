@@ -77,6 +77,7 @@ type Node struct {
 	Public             bool      `json:"public"`
 	Name               string    `json:"name"`
 	Description        string    `json:"description"`
+	ContainerText      string    `json:"container_text"`
 	LocationID         int32     `json:"location_id"`
 	FQDN               string    `json:"fqdn"`
 	Scheme             string    `json:"scheme"`
@@ -88,6 +89,7 @@ type Node struct {
 	DiskOverallocate   int32     `json:"disk_overallocate"`
 	UploadSize         int32     `json:"upload_size"`
 	DaemonListen       int32     `json:"daemon_listen"`
+	DaemonText         string    `json:"daemon_text"`
 	DaemonSFTP         int32     `json:"daemon_sftp"`
 	DaemonBase         string    `json:"daemon_base"`
 	CreatedAt          time.Time `json:"created_at"`
@@ -99,6 +101,9 @@ func (n Node) GetName() string {
 }
 func (n Node) GetDescription() string {
 	return n.Description
+}
+func (n Node) GetContainerText() string {
+	return n.ContainerText
 }
 func (n Node) GetPublic() bool {
 	return n.Public
@@ -139,11 +144,15 @@ func (n Node) GetDaemonSFTP() int32 {
 func (n Node) GetDaemonListen() int32 {
 	return n.DaemonListen
 }
+func (n Node) GetDaemonText() string {
+	return n.DaemonText
+}
 
 // PartialNode - Only used for creating a new node
 type PartialNode struct {
 	Name               string `json:"name"`
 	Description        string `json:"description"`
+	ContainerText      string `json:"container_text"`
 	Public             bool   `json:"public"`
 	BehindProxy        bool   `json:"behind_proxy"`
 	MaintenanceMode    bool   `json:"maintenance_mode"`
@@ -157,6 +166,7 @@ type PartialNode struct {
 	UploadSize         int32  `json:"upload_size"`
 	DaemonSFTP         int32  `json:"daemon_sftp"`
 	DaemonListen       int32  `json:"daemon_listen"`
+	DaemonText         string `json:"daemon_text"`
 }
 
 func (n PartialNode) GetName() string {
@@ -164,6 +174,9 @@ func (n PartialNode) GetName() string {
 }
 func (n PartialNode) GetDescription() string {
 	return n.Description
+}
+func (n PartialNode) GetContainerText() string {
+	return n.ContainerText
 }
 func (n PartialNode) GetPublic() bool {
 	return n.Public
@@ -204,6 +217,9 @@ func (n PartialNode) GetDaemonSFTP() int32 {
 func (n PartialNode) GetDaemonListen() int32 {
 	return n.DaemonListen
 }
+func (n PartialNode) GetDaemonText() string {
+	return n.DaemonText
+}
 
 type NodesResponse struct {
 	Object string         `json:"object"`
@@ -219,6 +235,7 @@ type NodeResponse struct {
 type NodesInterface interface {
 	GetName() string
 	GetDescription() string
+	GetContainerText() string
 	GetPublic() bool
 	GetBehindProxy() bool
 	GetMaintenanceMode() bool
@@ -232,6 +249,7 @@ type NodesInterface interface {
 	GetUploadSize() int32
 	GetDaemonSFTP() int32
 	GetDaemonListen() int32
+	GetDaemonText() string
 }
 
 // NodeConfiguration -

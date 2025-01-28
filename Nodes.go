@@ -85,6 +85,7 @@ func (c *Client) CreateNode(node NodesInterface) (Node, error) {
 	createNode := PartialNode{
 		Name:               node.GetName(),
 		Description:        node.GetDescription(),
+		ContainerText:      node.GetContainerText(),
 		Public:             node.GetPublic(),
 		BehindProxy:        node.GetBehindProxy(),
 		MaintenanceMode:    node.GetMaintenanceMode(),
@@ -97,6 +98,7 @@ func (c *Client) CreateNode(node NodesInterface) (Node, error) {
 		DiskOverallocate:   node.GetDiskOverallocate(),
 		UploadSize:         node.GetUploadSize(),
 		DaemonListen:       node.GetDaemonListen(),
+		daemon_text:        node.GetDaemonText(),
 		DaemonSFTP:         node.GetDaemonSFTP(),
 	}
 	req, err := http.NewRequest("POST", fmt.Sprintf("%s/api/application/nodes", c.HostURL), c.prepareBody(createNode))
@@ -125,6 +127,7 @@ func (c *Client) UpdateNode(nodeID int32, node NodesInterface) (Node, error) {
 	updatedNode := PartialNode{
 		Name:               node.GetName(),
 		Description:        node.GetDescription(),
+		ContainerText:      node.GetContainerText(),
 		Public:             node.GetPublic(),
 		BehindProxy:        node.GetBehindProxy(),
 		MaintenanceMode:    node.GetMaintenanceMode(),
@@ -137,6 +140,7 @@ func (c *Client) UpdateNode(nodeID int32, node NodesInterface) (Node, error) {
 		DiskOverallocate:   node.GetDiskOverallocate(),
 		UploadSize:         node.GetUploadSize(),
 		DaemonListen:       node.GetDaemonListen(),
+		DaemonText:         node.GetDaemonText(),
 		DaemonSFTP:         node.GetDaemonSFTP(),
 	}
 	req, err := http.NewRequest("PATCH", fmt.Sprintf("%s/api/application/nodes/%d", c.HostURL, nodeID), c.prepareBody(updatedNode))
