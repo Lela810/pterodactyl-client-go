@@ -98,7 +98,7 @@ func (c *Client) CreateNode(node NodesInterface) (Node, error) {
 		DiskOverallocate:   node.GetDiskOverallocate(),
 		UploadSize:         node.GetUploadSize(),
 		DaemonListen:       node.GetDaemonListen(),
-		daemon_text:        node.GetDaemonText(),
+		DaemonText:        node.GetDaemonText(),
 		DaemonSFTP:         node.GetDaemonSFTP(),
 	}
 	req, err := http.NewRequest("POST", fmt.Sprintf("%s/api/application/nodes", c.HostURL), c.prepareBody(createNode))
